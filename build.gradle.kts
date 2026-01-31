@@ -33,16 +33,11 @@ tasks.withType<ProcessResources> {
     }
 }
 
-tasks.jar {
-    enabled = false
-}
-
 tasks.shadowJar {
     relocate("us.ajg0702.utils", "us.ajg0702.parkour.utils")
     relocate("com.zaxxer.hikari", "us.ajg0702.parkour.hikari")
 
-    archiveClassifier.set("")
-    archiveFileName.set("NaturalParkour.jar")
+    archiveClassifier.set("all")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 

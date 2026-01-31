@@ -35,15 +35,16 @@ jobs:
       - name: Extract Project Info
         id: info
         run: |
-          echo "artifact_name=NaturalParkour" >> $GITHUB_OUTPUT
           VERSION=$(grep '^version =' build.gradle.kts | cut -d '"' -f 2)
-          echo "artifact_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          # Rename the fat jar to the requested name
+          mv build/libs/NaturalParkour-${VERSION}-all.jar build/libs/NaturalParkour.jar
 
       - name: Create Production Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.info.outputs.artifact_version }}
-          name: NaturalParkour v${{ steps.info.outputs.artifact_version }}
+          tag_name: v${{ steps.info.outputs.version }}
+          name: NaturalParkour v${{ steps.info.outputs.version }}
           body: |
             Automated Production Build from NaturalSMP CI/CD.
             Last Build Time: ${{ github.event.head_commit.timestamp }}
