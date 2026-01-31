@@ -13,9 +13,9 @@ public class MaterialParser {
 		blockname = blockname.split(";")[0];
 		Material mat;
 		int data = -1;
-		if(blockname.contains(":") && VersionSupport.getMinorVersion() <= 12) {
+		if (blockname.contains(":") && VersionSupport.getMinorVersion() <= 12) {
 			String sd = blockname.split(":")[1];
-			if(sd.equalsIgnoreCase("true")) {
+			if (sd.equalsIgnoreCase("true")) {
 				data = Main.random(0, 16);
 			} else {
 				data = Integer.parseInt(sd);
@@ -23,14 +23,14 @@ public class MaterialParser {
 		}
 		try {
 			mat = Material.valueOf(blockname.split(":")[0]);
-		} catch(Exception e) {
-			Bukkit.getLogger().warning("[ajParkour] Could not find block '"+blockname+"'!");
+		} catch (Exception e) {
+			Bukkit.getLogger().warning("[ajParkour] Could not find block '" + blockname + "'!");
 			loc.getBlock().setType(Material.STONE);
 			return;
 		}
 		loc.getBlock().setType(mat);
-		if(data >= 0) {
-			loc.getBlock().setData((byte) data);
+		if (data >= 0) {
+			loc.getBlock().setBlockData(Bukkit.getUnsafe().fromLegacy(mat, (byte) data));
 		}
 	}
 
