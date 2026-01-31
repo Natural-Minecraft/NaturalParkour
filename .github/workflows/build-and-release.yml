@@ -30,13 +30,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew shadowJar build
 
       - name: Extract Project Info
         id: info
         run: |
           echo "artifact_name=NaturalParkour" >> $GITHUB_OUTPUT
-          # Extract version from build.gradle.kts (simple grep for now, or use ./gradlew properties)
           VERSION=$(grep '^version =' build.gradle.kts | cut -d '"' -f 2)
           echo "artifact_version=$VERSION" >> $GITHUB_OUTPUT
 
