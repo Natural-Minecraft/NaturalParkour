@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-group = "us.ajg0702"
+group = "id.naturalsmp"
 version = "2.12.10"
 
 repositories {
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly("org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT")
+  compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT") // Updated to newer API
   compileOnly("me.clip:placeholderapi:2.10.4")
   compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1")
   compileOnly(files("libs/InfiniteJump.jar"))
@@ -42,11 +42,11 @@ tasks.shadowJar {
     relocate("com.zaxxer.hikari", "us.ajg0702.parkour.hikari")
 
     archiveClassifier.set("")
+    archiveFileName.set("NaturalParkour.jar")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 publishing {
