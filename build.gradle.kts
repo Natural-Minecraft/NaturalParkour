@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
   compileOnly("org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT") // Updated to newer API
-  compileOnly("me.clip:placeholderapi:2.10.4")
+  compileOnly("me.clip:placeholderapi:2.11.6")
   compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1")
   compileOnly(files("libs/InfiniteJump.jar"))
 
