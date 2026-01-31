@@ -33,12 +33,17 @@ tasks.withType<ProcessResources> {
     }
 }
 
+tasks.jar {
+    enabled = false
+}
+
 tasks.shadowJar {
     relocate("us.ajg0702.utils", "us.ajg0702.parkour.utils")
     relocate("com.zaxxer.hikari", "us.ajg0702.parkour.hikari")
 
     archiveClassifier.set("")
     archiveFileName.set("NaturalParkour.jar")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.build {
@@ -52,7 +57,7 @@ java {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            artifact(tasks["jar"])
+            artifact(tasks.shadowJar)
         }
     }
 

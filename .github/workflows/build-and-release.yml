@@ -30,7 +30,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew shadowJar build
+        run: ./gradlew shadowJar
 
       - name: Extract Project Info
         id: info
