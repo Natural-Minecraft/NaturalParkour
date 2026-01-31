@@ -1,1 +1,1 @@
-rootProject.name = "ajParkour"
+rootProject.name = "NaturalParkour"

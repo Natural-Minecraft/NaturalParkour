@@ -1,6 +1,6 @@
 plugins {
     java
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.github.johnrengelman.shadow") version "8.3.0"
     `maven-publish`
 }
 
@@ -33,11 +33,17 @@ tasks.withType<ProcessResources> {
     }
 }
 
+tasks.jar {
+    enabled = false
+}
+
 tasks.shadowJar {
+    archiveClassifier.set("")
+    archiveFileName.set("NaturalParkour.jar")
+    
     relocate("us.ajg0702.utils", "us.ajg0702.parkour.utils")
     relocate("com.zaxxer.hikari", "us.ajg0702.parkour.hikari")
 
-    archiveClassifier.set("all")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 

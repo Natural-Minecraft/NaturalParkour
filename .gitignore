@@ -7,3 +7,7 @@ ajParkour.iml
 build
 .gradle
 .DS_Store
+bin
+.classpath
+.project
+.vscode
