@@ -20,7 +20,7 @@ random-item: VINE
 #  Default: ENTITY_CHICKEN_EGG
 jump-sound: ENTITY_CHICKEN_EGG
 
-# The amount of players to show in /ajParkour top
+# The amount of players to show in /NaturalParkour top
 #  Default: 10
 top-shown: 10
 
@@ -50,7 +50,7 @@ execute-reward-commands: after
 #  Default: false
 parkour-inventory: true
 
-# If a world is listed here, the /ajParkour start command will not be usable from that world.
+# If a world is listed here, the /NaturalParkour start command will not be usable from that world.
 # World names are separated by commas (without spaces) and are case-sensitive!
 #  Example: 'disabledWorld1,disabledWorld2'
 start-disabled-worlds: disabledWorld1,disabledWorld2
@@ -60,8 +60,8 @@ start-disabled-worlds: disabledWorld1,disabledWorld2
 #  Default: 60
 kick-time: 60
 
-# Should we notify people with the permission ajparkour.update that an update is available?
-# They will then be able to download it using /ajParkour update
+# Should we notify people with the permission NaturalParkour.update that an update is available?
+# They will then be able to download it using /NaturalParkour update
 #  Default: true
 notify-update: true
 
@@ -102,7 +102,7 @@ new-block-particle: CLOUD
 #  Default: true
 enable-block-selector-item: true
 
-# Should we require the player to have the ajparkour.selector permission to get the block selector item?
+# Should we require the player to have the NaturalParkour.selector permission to get the block selector item?
 # (for the parkour inventory)
 #  Default: false
 require-permission-for-block-selector-item: false

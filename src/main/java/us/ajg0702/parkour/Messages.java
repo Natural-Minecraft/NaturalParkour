@@ -18,7 +18,7 @@ public class Messages {
 	
 	static Messages instance = null;
 	
-	File file = new File(Bukkit.getPluginManager().getPlugin("ajParkour").getDataFolder(), "messages.yml");
+	File file = new File(Bukkit.getPluginManager().getPlugin("NaturalParkour").getDataFolder(), "messages.yml");
 	YamlConfiguration msgs = YamlConfiguration.loadConfiguration(file);
 	
 	public String get(String key) {
@@ -118,7 +118,7 @@ public class Messages {
 		msgDefaults.put("errors.blocknotair.player", "&6Tell an admin, and try again later.");
 		msgDefaults.put("errors.blocknotair.admin", "&6Make sure the parkour area is completly air, and that the plugin has been correctly set up by reading /{CMD} setup.");
 		
-		msgDefaults.put("errors.notsetup.base", "&cajParkour has not been set up yet.");
+		msgDefaults.put("errors.notsetup.base", "&cNaturalParkour has not been set up yet.");
 		msgDefaults.put("errors.notsetup.player", "&6Ask an admin to set it up!");
 		msgDefaults.put("errors.notsetup.admin", "&6For info on how to set it up, do /{CMD} setup");
 		
@@ -132,17 +132,17 @@ public class Messages {
 		msgDefaults.put("placeholders.current.no-data", "0");
 		msgDefaults.put("placeholders.stats.time-format", "{m}m {s}s");
 
-		msgDefaults.put("commands.help.header", "&aajParkour made by &2ajgeiss0702&a!");
+		msgDefaults.put("commands.help.header", "&aNaturalParkour made by &2ajgeiss0702&a!");
 		msgDefaults.put("commands.help.start", "&6 /{CMD} start &7- &9Start parkour!");
 		msgDefaults.put("commands.help.startarea", "&6 /{CMD} start <area> &7- &9Start parkour in a certain area.");
 		msgDefaults.put("commands.help.startothers", "&6 /{CMD} start <player> [area] &7- &9Start another player's parkour in a certain area.");
 		msgDefaults.put("commands.help.top", "&6 /{CMD} top &7- &9See the top 10 players!");
 		msgDefaults.put("commands.help.list", "&6 /{CMD} list &7- &9See everyone that is playing parkour, and their current scores.");
-		msgDefaults.put("commands.help.setup", "&6 /{CMD} setup &7- &9Commands for setting up the plugin. &7(required permssion: ajparkour.setup)");
+		msgDefaults.put("commands.help.setup", "&6 /{CMD} setup &7- &9Commands for setting up the plugin. &7(required permssion: NaturalParkour.setup)");
 		msgDefaults.put("commands.help.portals", "&6 /{CMD} portals &7- &9Commands for setting up portals.");
 		msgDefaults.put("commands.help.areas", "&6 /{CMD} areas &7- &9List all loaded areas");
 		
-		msgDefaults.put("commands.setup.header", "&aajParkour&2 setup commands");
+		msgDefaults.put("commands.setup.header", "&aNaturalParkour&2 setup commands");
 		msgDefaults.put("commands.setup.create", "&6 /{CMD} setup create &7- &9Create an area");
 		msgDefaults.put("commands.setup.pos1", "&6 /{CMD} setup pos1 &7- &9Set the first position");
 		msgDefaults.put("commands.setup.pos2", "&6 /{CMD} setup pos2 &7- &9Set the second position");
@@ -154,7 +154,7 @@ public class Messages {
 		msgDefaults.put("commands.setup.max", "&6 /{CMD} setup max &7- &9Set the maximum number of people allowed in the area!");
 		msgDefaults.put("commands.setup.save", "&6 /{CMD} setup save &7- &9Saves and enabled the area. (This should be done last)");
 		
-		msgDefaults.put("commands.portals.header", "&aajParkour&2 portal commands");
+		msgDefaults.put("commands.portals.header", "&aNaturalParkour&2 portal commands");
 		msgDefaults.put("commands.portals.list", "&6 /{CMD} portals list &7- &9Lists all portals.");
 		msgDefaults.put("commands.portals.create", "&6 /{CMD} portals create &7- &9Create a portal.");
 		msgDefaults.put("commands.portals.remove", "&6 /{CMD} portals remove &7- &9Remove a portal.");
@@ -173,7 +173,7 @@ public class Messages {
 		msgDefaults.put("setup.need-to-create", "&aYou must create an area before editing it!");
 		msgDefaults.put("setup.we.not-installed", "&cYou need to have WorldEdit installed to use this command!&7 Try using the built-in pos1 and pos2 setup commands.");
 		msgDefaults.put("setup.we.incomplete-selection", "&cYou must make a complete worldedit selection before doing this!");
-		msgDefaults.put("setup.created", "&aArea created and added to the editing queue. See &2/ajParkour setup&a or view the plugin page for steps to set it up!");
+		msgDefaults.put("setup.created", "&aArea created and added to the editing queue. See &2/NaturalParkour setup&a or view the plugin page for steps to set it up!");
 		msgDefaults.put("setup.already-creating", "&cAn arena is currently being set up. &aPlease either save that arena, or run this command again to override. (&c&lNOTE:&r&c Overriding will erase all of the data of the arena being set up before!)");
 		msgDefaults.put("setup.info.header", "&6Colors: &aSet &7Not set (optional) &cNot set (required)");
 		msgDefaults.put("setup.set.pos1", "&aFirst position set!");
@@ -253,7 +253,7 @@ public class Messages {
 		try {
 			msgs.save(file);
 		} catch (IOException e) {
-			Bukkit.getLogger().warning("[ajParkour] Could not save messages file!");
+			Bukkit.getLogger().warning("[NaturalParkour] Could not save messages file!");
 		}
 	}
 }

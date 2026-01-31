@@ -41,7 +41,7 @@ public class Main extends JavaPlugin {
 			Class.forName("net.md_5.bungee.api.ChatColor");
 		} catch(ClassNotFoundException e) {
 			getLogger().severe("Your server software is not supported!");
-			getLogger().severe("ajParkour requires spigot or a fork of spigot. Disabling.");
+			getLogger().severe("NaturalParkour requires spigot or a fork of spigot. Disabling.");
 			this.setEnabled(false);
 			return;
 		}
@@ -63,7 +63,7 @@ public class Main extends JavaPlugin {
 				+ "Here is a list for the latest spigot version: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html "
 				+ "(the list starts below the orange box that says Enum Constants)\n"
 				+ " Default: "+popSound);
-		config.addEntry("top-shown", 10, "The amount of players to show in /ajParkour top\n Default: 10");
+		config.addEntry("top-shown", 10, "The amount of players to show in /NaturalParkour top\n Default: 10");
 		config.addEntry("jumps-ahead", 1, "The number of extra blocks to place ahead of the next jump.\n Default: 1");
 		config.addEntry("start-sound", "NONE", "The sound to play when a player starts parkour. See jump-sound for more info.\n Default: NONE");
 		config.addEntry("end-sound", "NONE", "The sound to play when a player falls. See jump-sound for more info.\n Default: NONE");
@@ -71,9 +71,9 @@ public class Main extends JavaPlugin {
 		config.addEntry("particle-count", 25, "The number of particles to spawn when a new block is placed.\n Default: 25");
 		config.addEntry("execute-reward-commands", "earned", "When to execute the reward commands.\n Options: 'earned', 'after'\n Default: 'earned'");
 		config.addEntry("parkour-inventory", false, "If this is true, the player's inventory will be cleared while on the parkour, and reset after.\nNOTICE: If one of your reward commands gives items, you need to set execute-reward-commands to 'after' or else they will lose the items.\n Default: false");
-		config.addEntry("start-disabled-worlds", "disabledworld1,disabledworld2", "If a world is listed here, the /ajParkour start command will not be usable from that world.\nWorld names are seperated by commas (without spaces) and are case-sensitive!\n Example: 'disabledworld1,disabledworld2'");
+		config.addEntry("start-disabled-worlds", "disabledworld1,disabledworld2", "If a world is listed here, the /NaturalParkour start command will not be usable from that world.\nWorld names are seperated by commas (without spaces) and are case-sensitive!\n Example: 'disabledworld1,disabledworld2'");
 		config.addEntry("kick-time", 60, "How long, in seconds, after a player doesnt move should we kick them from the parkour?\nSet to -1 to disable\n Default: 60");
-		config.addEntry("notify-update", true, "Should we notify people with the permission ajparkour.update that an update is available?\nThey will then be able to download it using /ajParkour update\n Default: true");
+		config.addEntry("notify-update", true, "Should we notify people with the permission NaturalParkour.update that an update is available?\nThey will then be able to download it using /NaturalParkour update\n Default: true");
 		config.addEntry("begin-score-per-area", false, "Should the score we tell the player to beat be per-area or global?\nFor example, if this is true and the player got 30 on another area but only 10 on this one, they will be told to beat their record of 10.\n Default: false");
 		config.addEntry("enable-portals", true, "Should the portals be disabled?\nIf your server is lagging from this plugin without many people on parkour, try disabling this.\nREQUIRES SERVER RESTART (not just config reload)\n Default: true");
 		config.addEntry("faster-portals", false, "Shoud we use a more optimized method to look if players are at a portal?\nIt may require the player to be in the block for a little longer\nEnable this if you have a lot of people on your server and are experiencing lag.\n Default: false");
@@ -103,7 +103,7 @@ public class Main extends JavaPlugin {
 			areaStorage.getPortals();
 		}, 10);
 		
-		getCommand("ajParkour").setTabCompleter(new CommandComplete(this));
+		getCommand("NaturalParkour").setTabCompleter(new CommandComplete(this));
 		
 		if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 			placeholders = new Placeholders(this);
@@ -122,7 +122,7 @@ public class Main extends JavaPlugin {
 		updater = Updater.getInstance(this);
 		
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', 
-				"&aajParkour &2v"+this.getDescription().getVersion()+" by ajgeiss0702 has been &aenabled!"));
+				"&aNaturalParkour &2v"+this.getDescription().getVersion()+" by ajgeiss0702 has been &aenabled!"));
 	}
 
 	public Config getAConfig() {
@@ -208,7 +208,7 @@ public class Main extends JavaPlugin {
 		man.disable();
 		scores.disable();
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-				"&cajParkour &4v" + this.getDescription().getVersion() + " by ajgeiss0702 has been &cdisabled!"));
+				"&cNaturalParkour &4v" + this.getDescription().getVersion() + " by ajgeiss0702 has been &cdisabled!"));
 	}
 	
 	
