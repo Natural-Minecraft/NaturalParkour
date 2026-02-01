@@ -1,14 +1,14 @@
 name: NaturalParkour
 version: "@VERSION@"
-author: NaturalSMP
+author: NaturalDev
 description: Randomly generated parkour!
 website: https://github.com/Natural-Minecraft/NaturalParkour
-main: us.ajg0702.parkour.Main
+main: id.naturalsmp.naturalparkour.Main
 softdepend: [PlaceholderAPI, WorldEdit]
 api-version: 1.13
 
 commands:
   naturalparkour:
     description: NaturalParkour commands
-    aliases: [nparkour, npk, parkour, ap, ajp, ajpk, apk]
+    aliases: [nparkour, npk, parkour]
     usage: "/naturalparkour, /parkour"

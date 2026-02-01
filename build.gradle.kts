@@ -13,7 +13,6 @@ repositories {
     maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
     maven { url = uri("https://maven.enginehub.org/repo/") }
-    maven { url = uri("https://gitlab.com/api/v4/projects/19978391/packages/maven") }
 }
 
 dependencies {
@@ -24,7 +23,6 @@ dependencies {
 
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.slf4j:slf4j-simple:1.6.4")
-    implementation("us.ajg0702:ajUtils:1.0.0")
 }
 
 tasks.withType<ProcessResources> {
@@ -41,8 +39,8 @@ tasks.shadowJar {
     archiveClassifier.set("")
     archiveFileName.set("NaturalParkour.jar")
     
-    relocate("us.ajg0702.utils", "us.ajg0702.parkour.utils")
-    relocate("com.zaxxer.hikari", "us.ajg0702.parkour.hikari")
+    
+    relocate("com.zaxxer.hikari", "id.naturalsmp.naturalparkour.hikari")
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
@@ -63,11 +61,11 @@ publishing {
     }
 
     repositories {
-        val mavenUrl = "https://repo.ajg0702.us/releases"
+        val mavenUrl = "https://repo.naturalsmp.my.id/releases"
         if (!System.getenv("REPO_TOKEN").isNullOrEmpty()) {
             maven {
                 url = uri(mavenUrl)
-                name = "ajRepo"
+                name = "naturalRepo"
                 credentials {
                     username = "plugins"
                     password = System.getenv("REPO_TOKEN")
