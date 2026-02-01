@@ -1,5 +1,8 @@
 package id.naturalsmp.naturalparkour;
 
+import id.naturalsmp.naturalparkour.utils.ChatUtils;
+import net.milkbowl.vault.economy.Economy;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -353,10 +356,63 @@ public class Rewards implements Listener {
 
 			cmd = cmd.replaceAll("\\{PLAYER}", p.getPlayer().getName());
 
+			if (cmd.startsWith("[bank]")) {
+				String amountStr = cmd.replace("[bank]", "").trim();
+				try {
+					double amount = Double.parseDouble(amountStr);
+					giveBankReward(p, amount);
+				} catch (NumberFormatException e) {
+					Bukkit.getLogger().warning("[NaturalParkour] Invalid bank reward amount: " + amountStr);
+				}
+				continue;
+			}
+
 			if (execAsPlayer) {
 				Bukkit.dispatchCommand(p.getPlayer(), cmd);
 			} else {
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+			}
+		}
+	}
+
+	private static void giveBankReward(Player p, double amount) {
+		if (Bukkit.getPluginManager().getPlugin("NaturalBank") != null) {
+			try {
+				Object economy = Class.forName("id.naturalsmp.naturalbank.economy.NBEconomy")
+						.getMethod("get", String.class).invoke(null, "main");
+				if (economy != null) {
+					java.math.BigDecimal toAdd = java.math.BigDecimal.valueOf(amount);
+					java.math.BigDecimal added = (java.math.BigDecimal) economy.getClass()
+							.getMethod("addBankBalance", Player.class, java.math.BigDecimal.class)
+							.invoke(economy, p, toAdd);
+
+					java.math.BigDecimal remainder = toAdd.subtract(added);
+					if (remainder.compareTo(java.math.BigDecimal.ZERO) > 0) {
+						if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
+							Economy vault = Bukkit.getServicesManager().load(Economy.class);
+							if (vault != null) {
+								vault.depositPlayer(p, remainder.doubleValue());
+								p.sendMessage(ChatUtils
+										.colorize("&a&l+ " + added + " &7(Bank) &a&l+ " + remainder + " &7(Pocket)"));
+							}
+						}
+					} else {
+						p.sendMessage(ChatUtils.colorize("&a&l+ " + added + " &7(Bank)"));
+					}
+					return;
+				}
+			} catch (Exception e) {
+				Bukkit.getLogger()
+						.warning("[NaturalParkour] Failed to give bank reward via reflection: " + e.getMessage());
+			}
+		}
+
+		// Fallback
+		if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
+			Economy vault = Bukkit.getServicesManager().load(Economy.class);
+			if (vault != null) {
+				vault.depositPlayer(p, amount);
+				p.sendMessage(ChatUtils.colorize("&a&l+ " + amount + " &7(Pocket)"));
 			}
 		}
 	}

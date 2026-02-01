@@ -1,5 +1,6 @@
 package id.naturalsmp.naturalparkour;
 
+import id.naturalsmp.naturalparkour.utils.ChatUtils;
 import java.util.*;
 
 import org.bukkit.Bukkit;
@@ -41,7 +42,6 @@ public class Commands implements CommandExecutor {
 	HashMap<String, Object> editing = new HashMap<>();
 	Player editingoverrideplayer = null;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player sply = null;
@@ -49,7 +49,11 @@ public class Commands implements CommandExecutor {
 			sply = (Player) sender;
 
 		if (args.length <= 0) {
-			sender.sendMessage(getMainHelp(sply, label));
+			if (sply != null) {
+				id.naturalsmp.naturalparkour.gui.ParkourMenu.open(sply);
+			} else {
+				sender.sendMessage(getMainHelp(sply, label));
+			}
 			return true;
 		}
 
@@ -65,7 +69,7 @@ public class Commands implements CommandExecutor {
 					return true;
 				}
 
-				if (pl.man.getPlayer(sply) != null) {
+				if (sply != null && pl.man.getPlayer(sply) != null) {
 					sender.sendMessage(msgs.get("alreadyin", sply));
 					return true;
 				}
@@ -190,13 +194,13 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(msgs.get("noperm", sply));
 						return true;
 					}
-					if (sply != null) {
-						pl.selector.openSelector(sply);
+					if (sender instanceof Player p) {
+						pl.selector.openSelector(p);
 					}
 				}
 				return true;
 			case "reset":
-				if (sender instanceof Player) {
+				if (sply != null) {
 					sply.sendMessage(msgs.get("not-in-game"));
 					return true;
 				}
@@ -210,7 +214,7 @@ public class Commands implements CommandExecutor {
 				}
 				return true;
 			case "version":
-				sender.sendMessage(msgs.color("&aNaturalParkour &2v&a" + pl.getDescription().getVersion()
+				sender.sendMessage(ChatUtils.colorize("&aNaturalParkour &2v&a" + pl.getPluginMeta().getVersion()
 						+ " &2by &6NaturalDev &7(https://github.com/Natural-Minecraft/NaturalParkour)"));
 				return true;
 			case "top":
@@ -286,7 +290,8 @@ public class Commands implements CommandExecutor {
 					return true;
 				}
 				pl.areaStorage.removeArea(args[1]);
-				sender.sendMessage(msgs.get("areas.remove.success", sply).replaceAll("\\{NAME}", args[1]));
+				sender.sendMessage(msgs.get("areas.remove.success", (sender instanceof Player p ? p : null))
+						.replaceAll("\\{NAME}", args[1]));
 				return true;
 			case "edit":
 				if (!(sender instanceof Player)) {
@@ -326,7 +331,8 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage(msgs.get("not-from-console"));
 					return true;
 				}
-				if (!sply.hasPermission("naturalparkour.setup") && !sply.hasPermission("naturalparkour.portals")) {
+				if (sply != null && !sply.hasPermission("naturalparkour.setup")
+						&& !sply.hasPermission("naturalparkour.portals")) {
 					sender.sendMessage(msgs.get("noperm", sply));
 					return true;
 				}
@@ -470,11 +476,11 @@ public class Commands implements CommandExecutor {
 							}
 							List<String> pr = new ArrayList<>();
 							pr.add(msgs.get("setup.info.header", sply));
-							pr.add(msgs.color("&" + (editing.containsKey("pos1") ? "a" : "c") + "pos1"));
-							pr.add(msgs.color("&" + (editing.containsKey("pos2") ? "a" : "c") + "pos2"));
-							pr.add(msgs.color("&" + (editing.containsKey("diff") ? "a" : "c") + "difficulty"));
-							pr.add(msgs.color("&" + (editing.containsKey("max") ? "a" : "7") + "max"));
-							pr.add(msgs.color("&" + (editing.containsKey("fallpos") ? "a" : "7") + "fallpos"));
+							pr.add(ChatUtils.colorize("&" + (editing.containsKey("pos1") ? "a" : "c") + "pos1"));
+							pr.add(ChatUtils.colorize("&" + (editing.containsKey("pos2") ? "a" : "c") + "pos2"));
+							pr.add(ChatUtils.colorize("&" + (editing.containsKey("diff") ? "a" : "c") + "difficulty"));
+							pr.add(ChatUtils.colorize("&" + (editing.containsKey("max") ? "a" : "7") + "max"));
+							pr.add(ChatUtils.colorize("&" + (editing.containsKey("fallpos") ? "a" : "7") + "fallpos"));
 							StringBuilder str = new StringBuilder();
 							for (String t : pr) {
 								str.append("\n").append(t);

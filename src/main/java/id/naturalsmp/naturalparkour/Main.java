@@ -14,6 +14,12 @@ import java.util.Map.Entry;
 
 public class Main extends JavaPlugin {
 
+	private static Main INSTANCE;
+
+	public static Main getInstance() {
+		return INSTANCE;
+	}
+
 	public boolean papi = false;
 	public Messages msgs;
 	public Scores scores;
@@ -33,89 +39,17 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		INSTANCE = this;
 
-		try {
-			Class.forName("net.md_5.bungee.api.ChatColor");
-		} catch (ClassNotFoundException e) {
-			getLogger().severe("Your server software is not supported!");
-			getLogger().severe("NaturalParkour requires spigot or a fork of spigot. Disabling.");
-			this.setEnabled(false);
-			return;
-		}
+		// BungeeCord ChatColor check removed as it's standard in 1.21+
+
+		ConfigUpdater.updateConfig(this, "config.yml");
+		ConfigUpdater.updateConfig(this, "messages.yml");
+		ConfigUpdater.updateConfig(this, "blocks.yml");
+		ConfigUpdater.updateConfig(this, "jumps.yml");
+		ConfigUpdater.updateConfig(this, "rewards.yml");
 
 		config = new Config(this);
-
-		/*
-		 * String popSound = "ENTITY_CHICKEN_EGG";
-		 * //System.out.println("Minor Version: 1."+VersionSupport.getMinorVersion());
-		 * 
-		 * if(VersionSupport.getMinorVersion() <= 8) {
-		 * popSound = "CHICKEN_EGG_POP";
-		 * }
-		 * 
-		 * config = new Config(this, "config.yml");
-		 * config.addEntry("area-selection", "lowest",
-		 * "The method to fill multiple multiple parkour areas.\nIf you only have one, this option is ignored.\n Default: lowest"
-		 * );
-		 * config.addEntry("random-block-selection", "each",
-		 * "Whether to pick a random block each jump, or a random block at the start.\n Options: 'each' or 'start'.\n Default: each"
-		 * );
-		 * config.addEntry("random-item", "VINE",
-		 * "This is the item to show in the selector GUI to represent the random block mode.\n Default: VINE"
-		 * );
-		 * config.addEntry("jump-sound", popSound,
-		 * "This is the sound to play when a player makes a jump.\n"
-		 * +
-		 * "Here is a list for the latest spigot version: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html "
-		 * + "(the list starts below the orange box that says Enum Constants)\n"
-		 * + " Default: "+popSound);
-		 * config.addEntry("top-shown", 10,
-		 * "The amount of players to show in /NaturalParkour top\n Default: 10");
-		 * config.addEntry("jumps-ahead", 1,
-		 * "The number of extra blocks to place ahead of the next jump.\n Default: 1");
-		 * config.addEntry("start-sound", "NONE",
-		 * "The sound to play when a player starts parkour. See jump-sound for more info.\n Default: NONE"
-		 * );
-		 * config.addEntry("end-sound", "NONE",
-		 * "The sound to play when a player falls. See jump-sound for more info.\n Default: NONE"
-		 * );
-		 * config.addEntry("new-block-particle", "CLOUD",
-		 * "The particle to use when a new block is placed.\nSee the list of particles here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html\n Default: CLOUD"
-		 * );
-		 * config.addEntry("particle-count", 25,
-		 * "The number of particles to spawn when a new block is placed.\n Default: 25"
-		 * );
-		 * config.addEntry("execute-reward-commands", "earned",
-		 * "When to execute the reward commands.\n Options: 'earned', 'after'\n Default: 'earned'"
-		 * );
-		 * config.addEntry("parkour-inventory", false,
-		 * "If this is true, the player's inventory will be cleared while on the parkour, and reset after.\nNOTICE: If one of your reward commands gives items, you need to set execute-reward-commands to 'after' or else they will lose the items.\n Default: false"
-		 * );
-		 * config.addEntry("start-disabled-worlds", "disabledworld1,disabledworld2",
-		 * "If a world is listed here, the /NaturalParkour start command will not be usable from that world.\nWorld names are seperated by commas (without spaces) and are case-sensitive!\n Example: 'disabledworld1,disabledworld2'"
-		 * );
-		 * config.addEntry("kick-time", 60,
-		 * "How long, in seconds, after a player doesnt move should we kick them from the parkour?\nSet to -1 to disable\n Default: 60"
-		 * );
-		 * config.addEntry("notify-update", true,
-		 * "Should we notify people with the permission NaturalParkour.update that an update is available?\nThey will then be able to download it using /NaturalParkour update\n Default: true"
-		 * );
-		 * config.addEntry("begin-score-per-area", false,
-		 * "Should the score we tell the player to beat be per-area or global?\nFor example, if this is true and the player got 30 on another area but only 10 on this one, they will be told to beat their record of 10.\n Default: false"
-		 * );
-		 * config.addEntry("enable-portals", true,
-		 * "Should the portals be disabled?\nIf your server is lagging from this plugin without many people on parkour, try disabling this.\nREQUIRES SERVER RESTART (not just config reload)\n Default: true"
-		 * );
-		 * config.addEntry("faster-portals", false,
-		 * "Shoud we use a more optimized method to look if players are at a portal?\nIt may require the player to be in the block for a little longer\nEnable this if you have a lot of people on your server and are experiencing lag.\n Default: false"
-		 * );
-		 * config.addEntry("enable-updater", true,
-		 * "Should the updater be enabled?\nIf this is disabled, the plugin will not attempt to check for updates, and you will have to download new updates manually\nRequires a restart\n Default: true"
-		 * );
-		 * config.addEntry("faster-afk-detection", false,
-		 * "Should we apply faster-portals to the afk detections?\n Default: false");
-		 * config.setEntries();
-		 */
 
 		msgs = new Messages(this);
 		scores = new Scores(this);
@@ -147,13 +81,14 @@ public class Main extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(man, this);
 		getServer().getPluginManager().registerEvents(selector, this);
+		getServer().getPluginManager().registerEvents(new id.naturalsmp.naturalparkour.gui.GUIListener(this), this);
 
 		cmds = new Commands(this);
 
 		new Metrics(this);
 
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-				"&aNaturalParkour &2v" + this.getDescription().getVersion() + " by NaturalDev has been &aenabled!"));
+		NPLogger.log("&aNaturalParkour &2v" + this.getPluginMeta().getVersion()
+				+ " &aby &2NaturalDev &7has been &aenabled!");
 	}
 
 	public Config getAConfig() {
@@ -235,8 +170,8 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		man.disable();
 		scores.disable();
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-				"&cNaturalParkour &4v" + this.getDescription().getVersion() + " by NaturalDev has been &cdisabled!"));
+		NPLogger.log("&cNaturalParkour &4v" + this.getPluginMeta().getVersion()
+				+ " &bby &2NaturalDev &7has been &cdisabled!");
 	}
 
 	final private List<String> reloadable = new LinkedList<>(
