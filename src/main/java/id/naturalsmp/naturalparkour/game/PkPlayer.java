@@ -1,6 +1,9 @@
 package id.naturalsmp.naturalparkour.game;
 
 import fr.mrmicky.infinitejump.InfiniteJump;
+import org.bukkit.boss.BossBar;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,6 +77,8 @@ public class PkPlayer implements Listener {
 	InfiniteJump ij;
 	boolean ijenableAfter = false;
 
+	org.bukkit.boss.BossBar bossBar;
+
 	/**
 	 * Inits a parkour player
 	 * 
@@ -130,6 +135,13 @@ public class PkPlayer implements Listener {
 		if (infiniteJump) {
 			ij = (InfiniteJump) Bukkit.getPluginManager().getPlugin("InfiniteJump");
 		}
+
+		// Initialize BossBar
+		String title = msgs.get("score")
+				.replaceAll("\\{SCORE}", "0")
+				.replaceAll("\\{HIGHSCORE}", prevhigh < 0 ? "0" : prevhigh + "");
+		bossBar = Bukkit.createBossBar(title, org.bukkit.boss.BarColor.GREEN, org.bukkit.boss.BarStyle.SOLID);
+		bossBar.addPlayer(ply);
 
 		Location start = area.getRandomPosition();
 		jumps = new ArrayList<>();
@@ -227,10 +239,13 @@ public class PkPlayer implements Listener {
 		PkJump nj = new PkJump(this, prevJump);
 		nj.place();
 		jumps.add(nj);
-		VersionSupport.sendActionBar(ply,
-				msgs.get("score")
-						.replaceAll("\\{SCORE}", score + "")
-						.replaceAll("\\{HIGHSCORE}", prevhigh < 0 ? "0" : prevhigh + ""));
+
+		// Update BossBar
+		String title = msgs.get("score")
+				.replaceAll("\\{SCORE}", score + "")
+				.replaceAll("\\{HIGHSCORE}", prevhigh < 0 ? "0" : prevhigh + "");
+		if (bossBar != null)
+			bossBar.setTitle(title);
 
 		if (score == prevhigh && prevhigh > 0) {
 			ply.sendMessage(msgs.get("beatrecord-ingame", ply).replaceAll("\\{SCORE}", prevhigh + ""));
@@ -447,7 +462,8 @@ public class PkPlayer implements Listener {
 				InvManager.restoreInventory(ply);
 			} catch (IOException e) {
 				ply.sendMessage("&cAn error occured while trying to restore your inventory!");
-				Bukkit.getLogger().severe("[NaturalParkour] An error occured while trying to restore player's inventory:");
+				Bukkit.getLogger()
+						.severe("[NaturalParkour] An error occured while trying to restore player's inventory:");
 				e.printStackTrace();
 			}
 		}
@@ -467,6 +483,11 @@ public class PkPlayer implements Listener {
 
 		if (infiniteJump && ijenableAfter) {
 			ij.getJumpManager().enable(ply);
+		}
+
+		if (bossBar != null) {
+			bossBar.removePlayer(ply);
+			bossBar = null;
 		}
 
 		if (cmds.size() > 0) {
