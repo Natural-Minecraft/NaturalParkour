@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "id.naturalsmp"
-version = "2.12.10"
+version = "2.12.11"
 
 repositories {
     mavenCentral()
