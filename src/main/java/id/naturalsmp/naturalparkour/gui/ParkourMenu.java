@@ -23,19 +23,22 @@ public class ParkourMenu implements InventoryHolder {
         Inventory inv = GUIUtils.createGUI(new ParkourMenu(), 27, Main.getInstance().msgs.get("gui.main.title"));
         GUIUtils.fillBorder(inv, Material.GRAY_STAINED_GLASS_PANE);
 
-        // Quick Start
-        ItemStack play = GUIUtils.createItem(Material.SLIME_BALL, "<green><bold>Quick Start",
-                Arrays.asList("<gray>Click to start parkour", "<gray>in a random area!"));
-        inv.setItem(11, play);
+        // 1. Select Area (Left - 11)
+        ItemStack areas = GUIUtils.createItem(Material.COMPASS,
+                Main.getInstance().msgs.get("gui.main.items.select.name"),
+                Arrays.asList(Main.getInstance().msgs.get("gui.main.items.select.lore").split("\n")));
+        inv.setItem(11, areas);
 
-        // Area Selector
-        ItemStack areas = GUIUtils.createItem(Material.COMPASS, "<yellow><bold>Select Area",
-                Arrays.asList("<gray>Browse available parkour", "<gray>areas and difficulties."));
-        inv.setItem(13, areas);
+        // 2. Quick Start (Center - 13)
+        ItemStack play = GUIUtils.createItem(Material.SLIME_BALL,
+                Main.getInstance().msgs.get("gui.main.items.quickstart.name"),
+                Arrays.asList(Main.getInstance().msgs.get("gui.main.items.quickstart.lore").split("\n")));
+        inv.setItem(13, play);
 
-        // Stats / Leaderboard
-        ItemStack stats = GUIUtils.createItem(Material.GOLD_INGOT, "<gold><bold>Top Scores",
-                Arrays.asList("<gray>View the best parkour", "<gray>players on the server."));
+        // 3. Top Scores (Right - 15)
+        ItemStack stats = GUIUtils.createItem(Material.GOLD_INGOT,
+                Main.getInstance().msgs.get("gui.main.items.top.name"),
+                Arrays.asList(Main.getInstance().msgs.get("gui.main.items.top.lore").split("\n")));
         inv.setItem(15, stats);
 
         player.openInventory(inv);

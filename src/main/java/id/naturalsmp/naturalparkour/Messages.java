@@ -139,7 +139,16 @@ public class Messages {
 		msgDefaults.put("gui.selector.items.selected.lore", "<green>Currently Selected");
 		msgDefaults.put("gui.selector.items.nextpage.name", "<green><bold>Next Page");
 		msgDefaults.put("gui.selector.items.prevpage.name", "<green><bold>Previous Page");
-		msgDefaults.put("gui.main.title", "Parkour Menu");
+		msgDefaults.put("gui.main.title", "Natural Parkour");
+		msgDefaults.put("gui.area.title", "Select Parkour Area");
+		msgDefaults.put("gui.top.title", "Top Scores");
+
+		msgDefaults.put("gui.main.items.quickstart.name", "<green><bold>Quick Start");
+		msgDefaults.put("gui.main.items.quickstart.lore", "<gray>Click to start parkour\n<gray>in a random area!");
+		msgDefaults.put("gui.main.items.select.name", "<yellow><bold>Select Area");
+		msgDefaults.put("gui.main.items.select.lore", "<gray>Browse available parkour\n<gray>areas and difficulties.");
+		msgDefaults.put("gui.main.items.top.name", "<gold><bold>Top Scores");
+		msgDefaults.put("gui.main.items.top.lore", "<gray>View the best parkour\n<gray>players on the server.");
 
 		msgDefaults.put("items.blockselector.name", "<green>Block Selector");
 

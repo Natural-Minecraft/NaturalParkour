@@ -18,13 +18,13 @@ public class GUIListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player))
+            return;
+        Player player = (Player) event.getWhoClicked();
+        ItemStack item = event.getCurrentItem();
+
         if (event.getInventory().getHolder() instanceof ParkourMenu) {
             event.setCancelled(true);
-            if (!(event.getWhoClicked() instanceof Player))
-                return;
-            Player player = (Player) event.getWhoClicked();
-
-            ItemStack item = event.getCurrentItem();
             if (item == null || item.getType() == Material.AIR)
                 return;
 
@@ -32,12 +32,37 @@ public class GUIListener implements Listener {
                 player.closeInventory();
                 player.performCommand("npk start");
             } else if (item.getType() == Material.COMPASS) {
-                player.closeInventory();
-                player.performCommand("npk areas");
+                AreaGUI.open(player);
             } else if (item.getType() == Material.GOLD_INGOT) {
-                player.closeInventory();
-                player.performCommand("npk top");
+                TopGUI.open(player);
             }
+        } else if (event.getInventory().getHolder() instanceof AreaGUI) {
+            event.setCancelled(true);
+            if (item == null || item.getType() == Material.AIR)
+                return;
+
+            // Extract area name from item display name
+            // Format: <yellow><bold>AreaName
+            // We need to strip colors.
+            if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+                // Suppress deprecation for getDisplayName as we need string for stripping
+                @SuppressWarnings("deprecation")
+                String rawName = item.getItemMeta().getDisplayName();
+                String name = net.md_5.bungee.api.ChatColor.stripColor(rawName);
+
+                // stripColor might leave spaces if format was weird, but here it should be
+                // fine.
+                // Actually, using ChatUtils.stripColor is safer if available.
+                // Checking Imports... Main uses ChatColor. But we removed BungeeCord dependency
+                // check?
+                // ChatUtils.stripColor is available in utils.
+                name = id.naturalsmp.naturalparkour.utils.ChatUtils.stripColor(name);
+
+                player.closeInventory();
+                player.performCommand("npk start " + name);
+            }
+        } else if (event.getInventory().getHolder() instanceof TopGUI) {
+            event.setCancelled(true);
         }
     }
 }
