@@ -252,13 +252,18 @@ public class BlockSelector implements Listener {
 			if (VersionSupport.getMinorVersion() > 12) {
 				it = new ItemStack(Material.valueOf(m.split(";")[0].split(":")[0]), 1);
 			} else {
-
+				// Legacy support for 1.12 and below
 				String[] parts = m.split(":");
 				if (parts.length > 1 && !parts[1].equalsIgnoreCase("true")) {
 					d = Integer.parseInt(parts[1]);
 				}
-				it = new ItemStack(Material.valueOf(m.split(";")[0].split(":")[0]), 1, (short) d,
+				// Use the legacy constructor only on legacy versions
+				// Suppress warning if compiling on newer API but expecting legacy behavior at
+				// runtime
+				@SuppressWarnings("deprecation")
+				ItemStack legacyItem = new ItemStack(Material.valueOf(m.split(";")[0].split(":")[0]), 1, (short) d,
 						(byte) ((d == -1) ? 0 : d));
+				it = legacyItem;
 			}
 			// Bukkit.getLogger().info(m+" == "+selected+" && "+d+" == "+selectedd);
 			if (m.split(":")[0].equals(selected + "") && d == selectedd) {

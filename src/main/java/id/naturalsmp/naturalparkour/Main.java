@@ -12,6 +12,9 @@ import id.naturalsmp.naturalparkour.utils.config.Config;
 import java.util.*;
 import java.util.Map.Entry;
 
+import id.naturalsmp.naturalparkour.utils.ConfigUpdater;
+import id.naturalsmp.naturalparkour.utils.NPLogger;
+
 public class Main extends JavaPlugin {
 
 	private static Main INSTANCE;

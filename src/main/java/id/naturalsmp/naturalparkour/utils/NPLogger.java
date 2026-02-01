@@ -18,7 +18,7 @@ public class NPLogger {
     }
 
     public static void debug(String message) {
-        if (Main.getInstance().getAConfig().getBoolean("debug", false)) {
+        if (Main.getInstance().getAConfig().getBoolean("debug")) {
             Bukkit.getConsoleSender().sendMessage(ChatUtils.colorize("&8[&bNP-DEBUG&8] &7" + message));
         }
     }
