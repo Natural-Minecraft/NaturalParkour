@@ -67,7 +67,7 @@ publishing {
     }
 
     repositories {
-        val mavenUrl = "https://repo.naturalsmp.my.id/releases"
+        val mavenUrl = "https://repo.naturalsmp.net/releases"
         if (!System.getenv("REPO_TOKEN").isNullOrEmpty()) {
             maven {
                 url = uri(mavenUrl)
