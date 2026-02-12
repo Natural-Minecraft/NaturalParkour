@@ -12,6 +12,10 @@ import java.util.Set;
 public class ConfigUpdater {
 
     public static void updateConfig(JavaPlugin plugin, String fileName) {
+        if (plugin.getResource(fileName) == null) {
+            return;
+        }
+
         File file = new File(plugin.getDataFolder(), fileName);
         if (!file.exists()) {
             plugin.saveResource(fileName, false);
