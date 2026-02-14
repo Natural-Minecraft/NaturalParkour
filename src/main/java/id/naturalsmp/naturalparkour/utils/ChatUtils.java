@@ -22,10 +22,7 @@ public class ChatUtils {
             return "";
 
         if (message.contains("<")) {
-            try {
-                return SECTION_SERIALIZER.serialize(MINI_MESSAGE.deserialize(message));
-            } catch (Exception ignored) {
-            }
+
         }
 
         Matcher matcher = HEX_PATTERN.matcher(message);

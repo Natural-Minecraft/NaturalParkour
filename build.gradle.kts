@@ -47,6 +47,7 @@ tasks.shadowJar {
     
     
     relocate("com.zaxxer.hikari", "id.naturalsmp.naturalparkour.hikari")
+    relocate("net.kyori", "id.naturalsmp.naturalparkour.lib.kyori")
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
