@@ -30,7 +30,14 @@ public class Messages {
 			"gui.selector.items.selected.lore",
 			"gui.selector.items.nextpage.name",
 			"gui.selector.items.prevpage.name",
-			"gui.main.title");
+			"gui.main.title",
+			"gui.main.items.select.name",
+			"gui.main.items.select.lore",
+			"gui.main.items.quickstart.name",
+			"gui.main.items.quickstart.lore",
+			"gui.main.items.top.name",
+			"gui.main.items.top.lore",
+			"items.blockselector.name");
 
 	public Messages(Main pl) {
 		this.plugin = pl;
