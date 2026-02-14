@@ -37,7 +37,9 @@ public class Messages {
 			"gui.main.items.quickstart.lore",
 			"gui.main.items.top.name",
 			"gui.main.items.top.lore",
-			"items.blockselector.name");
+			"items.blockselector.name",
+			"gui.area.title",
+			"gui.top.title");
 
 	public Messages(Main pl) {
 		this.plugin = pl;
