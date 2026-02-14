@@ -44,7 +44,7 @@ public class Messages {
 	public Messages(Main pl) {
 		this.plugin = pl;
 		this.file = new File(pl.getDataFolder(), "messages.yml");
-		this.msgs = YamlConfiguration.loadConfiguration(file);
+		reload();
 		instance = this;
 		setupDefaults();
 	}
@@ -80,7 +80,13 @@ public class Messages {
 	}
 
 	public void reload() {
-		msgs = YamlConfiguration.loadConfiguration(file);
+		try {
+			this.msgs = YamlConfiguration.loadConfiguration(
+					new java.io.InputStreamReader(new java.io.FileInputStream(file),
+							java.nio.charset.StandardCharsets.UTF_8));
+		} catch (java.io.FileNotFoundException e) {
+			this.msgs = new YamlConfiguration();
+		}
 	}
 
 	private void setupDefaults() {
@@ -172,6 +178,10 @@ public class Messages {
 		if (modified) {
 			try {
 				msgs.save(file);
+				// Standard YamlConfiguration.save(File) uses UTF-8 by default in modern
+				// Bukkit/Spigot,
+				// but let's be extra sure if needed. On very old versions it might not.
+				// For now, this is standard and usually fine as long as loading is matching.
 			} catch (IOException e) {
 				NPLogger.error("Could not save messages file!");
 			}
