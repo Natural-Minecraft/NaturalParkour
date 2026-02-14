@@ -25,10 +25,9 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly(files("libs/InfiniteJump.jar"))
 
-    implementation("com.zaxxer:HikariCP:3.4.5")
-    implementation("org.slf4j:slf4j-simple:1.6.4")
-    implementation("net.kyori:adventure-platform-bukkit:4.3.4")
-    implementation("net.kyori:adventure-text-minimessage:4.17.0")
+    compileOnly("com.zaxxer:HikariCP:3.4.5")
+    compileOnly("org.slf4j:slf4j-simple:1.6.4")
+
 }
 
 tasks.withType<ProcessResources> {
