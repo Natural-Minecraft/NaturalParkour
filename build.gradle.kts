@@ -25,9 +25,10 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
     compileOnly(files("libs/InfiniteJump.jar"))
 
-    compileOnly("com.zaxxer:HikariCP:3.4.5")
-    compileOnly("org.slf4j:slf4j-simple:1.6.4")
-
+    implementation("com.zaxxer:HikariCP:3.4.5")
+    implementation("org.slf4j:slf4j-simple:1.6.4")
+    compileOnly("net.kyori:adventure-platform-bukkit:4.3.4")
+    compileOnly("net.kyori:adventure-text-minimessage:4.17.0")
 }
 
 tasks.withType<ProcessResources> {
@@ -46,7 +47,6 @@ tasks.shadowJar {
     
     
     relocate("com.zaxxer.hikari", "id.naturalsmp.naturalparkour.hikari")
-    relocate("net.kyori", "id.naturalsmp.naturalparkour.lib.kyori")
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
