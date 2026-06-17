@@ -90,7 +90,18 @@ public class Main extends JavaPlugin {
 
 		new Metrics(this);
 
-		NPLogger.log("&aNaturalParkour &2v" + this.getPluginMeta().getVersion()
+		org.bukkit.Bukkit.getConsoleSender().sendMessage(
+				org.bukkit.ChatColor.translateAlternateColorCodes('&',
+					"\n&a===============\n" +
+					"&a _   _       _                  _     &e ____            _                    \n" +
+					"&a| \ | | __ _| |_ _   _ _ __ __ _| |   &e|  _ \ __ _ _ __| | _____  _   _ _ __ \n" +
+					"&a|  \| |/ _` | __| | | | '__/ _` | |   &e| |_) / _` | '__| |/ / _ \\| | | | '__|\n" +
+					"&a| |\  | (_| | |_| |_| | | | (_| | |   &e|  __/ (_| | |  |   < (_) | |_| | |   \n" +
+					"&a|_| \_|\__,_|\__|\__,_|_|  \__,_|_|   &e|_|   \__,_|_|  |_|\_\___/ \__,_|_|   \n" +
+					"       >> &eNaturalParkour v" + this.getPluginMeta().getVersion() + " Enabled! <<\n" +
+					"&a===============\n"
+				)
+		);
 				+ " &aby &2NaturalDev &7has been &aenabled!");
 	}
 
