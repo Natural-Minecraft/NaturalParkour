@@ -102,7 +102,6 @@ public class Main extends JavaPlugin {
 					"&a===============\n"
 				)
 		);
-				+ " &aby &2NaturalDev &7has been &aenabled!");
 	}
 
 	public Config getAConfig() {
